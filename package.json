@@ -1,0 +1,36 @@
+{
+  "name": "bitcoin-pwa",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "scripts": {
+    "dev": "node server.js",
+    "build": "next build",
+    "start": "NODE_ENV=production node server.js",
+    "fix-eslint": "eslint . --fix",
+    "test": "eslint ."
+  },
+  "dependencies": {
+    "@zeit/next-css": "^1.0.1",
+    "axios": "^0.19.0",
+    "dotenv-webpack": "^1.7.0",
+    "express": "^4.17.1",
+    "next": "^9.0.6",
+    "next-compose-plugins": "^2.2.0",
+    "next-offline": "^4.0.5",
+    "react": "^16.9.0",
+    "react-dom": "^16.9.0",
+    "react-no-ssr": "^1.1.0",
+    "workbox-sw": "^4.3.1",
+    "workbox-webpack-plugin": "^4.3.1"
+  },
+  "devDependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.5.0",
+    "eslint-config-vacuumlabs": "^1.8.2",
+    "eslint-plugin-import": "^2.18.2",
+    "eslint-plugin-react": "^7.14.3",
+    "eslint-plugin-react-hooks": "^2.1.1",
+    "prettier-eslint": "^9.0.0"
+  }
+}
