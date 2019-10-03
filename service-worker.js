@@ -31,8 +31,6 @@ const updateAppShell = async () => {
   return cache.put(APP_SHELL_URL, appShellReq)
 }
 
-// FIX OFFLINE SHOWN TO USER
-
 self.addEventListener('activate', (event) => {
   event.waitUntil(precacheController.activate().then(updateAppShell))
 })

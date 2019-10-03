@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react'
-
+import NoSSR from 'react-no-ssr'
 import axios from 'axios'
 
 import classes from './App.css'
@@ -64,7 +64,7 @@ const BitcoinInfo = () => {
 }
 
 const useIsOffline = () => {
-  const [offline, setIsOffline] = useState(process.browser ? !navigator.onLine : false)
+  const [offline, setIsOffline] = useState(!navigator.onLine)
 
   const onOffline = useCallback(() => setIsOffline(true), [setIsOffline])
   const onOnline = useCallback(() => setIsOffline(false), [setIsOffline])
@@ -89,7 +89,9 @@ const OfflineBar = () => {
 const App = () => (
   <div className={classes.wrapper}>
     <BitcoinInfo />
-    <OfflineBar />
+    <NoSSR>
+      <OfflineBar />
+    </NoSSR>
     <div className={classes.bitcoinImgWrapper}>
       <img src="/bitcoin-logo.png" alt="bitcoin logo" />
     </div>
