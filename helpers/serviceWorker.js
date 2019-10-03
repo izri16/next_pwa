@@ -9,10 +9,13 @@ function awaitWaitingOnNewWorker(reg, onUpdateAvailable) {
   })
 }
 
-// If service worker changed, we refresh the page so it will controle it
+// If service worker changed, we refresh the page so there are no resources left
+// from old worker
 const reloadOnServiceWorkerChange = () => {
   navigator.serviceWorker.addEventListener('controllerchange',
-    () => window.location.reload()
+    () => {
+      window.location.reload()
+    }
   )
 }
 
