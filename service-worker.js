@@ -43,9 +43,9 @@ self.addEventListener('fetch', (event) => {
 })
 
 workbox.routing.registerRoute(
-  /^https/,
+  /^https:\/\/api\.coindesk\.com\/v1/,
   new workbox.strategies.NetworkFirst({
-    cacheName: 'remote-apis',
+    cacheName: 'coindesk',
     plugins: [
       new workbox.cacheableResponse.Plugin({
         statuses: [200],
