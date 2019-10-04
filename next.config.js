@@ -4,6 +4,7 @@ const path = require('path')
 const {withPlugins} = require('next-compose-plugins')
 const withCSS = require('@zeit/next-css')
 const withOffline = require('next-offline')
+const withTypescript = require('@zeit/next-typescript')
 
 const config = {
   webpack: (config) => {
@@ -44,6 +45,7 @@ const config = {
 
 module.exports = withPlugins(
   [
+    withTypescript,
     withCSS(
       {
         cssModules: true,

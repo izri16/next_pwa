@@ -6,12 +6,31 @@ import classes from './App.css'
 
 // Note: when working in dev mode, set "bypass network" in chrome
 
+type BitcoinInfoData = {
+  bpi: {
+    EUR: {
+      rate: number,
+    },
+  },
+  time: {
+    updated: number,
+  }
+}
+
+type State = {
+  loading: boolean,
+  error: any,
+  data: BitcoinInfoData | null,
+}
+
+const getInitialState = (): State => ({
+  loading: false,
+  error: null,
+  data: null,
+})
+
 const useLoadBitcoinInfo = () => {
-  const [state, setState] = useState({
-    loading: false,
-    error: null,
-    data: null,
-  })
+  const [state, setState] = useState(getInitialState())
 
   const fetchData = useCallback(() => {
     setState((state) => ({...state, loading: true}))
@@ -42,7 +61,7 @@ const useLoadBitcoinInfo = () => {
 const DEFAULT_LOCALE = 'en-US'
 
 const language = process.browser
-  ? window.navigator.userLanguage || window.navigator.language || DEFAULT_LOCALE
+  ? window.navigator.language || DEFAULT_LOCALE
   : DEFAULT_LOCALE
 
 const BitcoinInfo = () => {
@@ -50,7 +69,7 @@ const BitcoinInfo = () => {
 
   if (error) {
     return <div>Could not load bitcoin price ... </div>
-  } else if (data) {
+  } else if (data !== null) {
     return (
       <div className={classes.bitcoinWrapper}>
         <div className={classes.bitcoinPrice}>{data.bpi.EUR.rate}&nbsp;EUR</div>

@@ -1,9 +1,12 @@
-import {useEffect} from 'react'
+import React, {ReactNode, useEffect} from 'react'
 
 // Installing new service worker is mess
 // https://redfin.engineering/how-to-fix-the-refresh-button-when-using-service-workers-a8e27af6df68
 
-function awaitWaitingOnNewWorker(reg, onUpdateAvailable) {
+type OnUpdateCallback = (reg: ServiceWorkerRegistration) => any 
+
+function awaitWaitingOnNewWorker(reg: ServiceWorkerRegistration, onUpdateAvailable: OnUpdateCallback) {
+  if (!reg.installing) return
   reg.installing.addEventListener('statechange', () => {
     if (reg.waiting) onUpdateAvailable(reg)
   })
@@ -19,7 +22,7 @@ const reloadOnServiceWorkerChange = () => {
   )
 }
 
-const listenForUpdateAvailable = (reg, onUpdateAvailable) => {
+const listenForUpdateAvailable = (reg: ServiceWorkerRegistration, onUpdateAvailable: OnUpdateCallback) => {
   if (reg.waiting) {
     onUpdateAvailable(reg)
   } else {
@@ -38,7 +41,13 @@ const listenForUpdateAvailable = (reg, onUpdateAvailable) => {
   }
 }
 
-export const ServiceWorkerProvider = ({children, fileName, onUpdateAvailable}) => {
+type ServiceWorkerProviderProps = {
+  fileName: string,
+  onUpdateAvailable: OnUpdateCallback,
+  children: ReactNode,
+}
+
+export const ServiceWorkerProvider = ({children, fileName, onUpdateAvailable}: ServiceWorkerProviderProps) => {
 
   useEffect(() => {
     reloadOnServiceWorkerChange()
@@ -51,5 +60,9 @@ export const ServiceWorkerProvider = ({children, fileName, onUpdateAvailable}) =
     })
   }, [fileName, onUpdateAvailable])
 
-  return children
+  return (
+    <React.Fragment>
+      {children}
+    </React.Fragment>
+  )
 }
