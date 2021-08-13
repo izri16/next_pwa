@@ -16,7 +16,7 @@
     "axios": "^0.19.0",
     "dotenv-webpack": "^1.7.0",
     "express": "^4.17.1",
-    "next": "^9.0.6",
+    "next": "^11.1.0",
     "next-compose-plugins": "^2.2.0",
     "next-offline": "^4.0.5",
     "react": "^16.9.0",
